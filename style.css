@@ -1,0 +1,135 @@
+/* General styling */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+body {
+    font-family: 'Poppins', 'sans-serif';
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+/* Header section */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Logo container */
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 100px;
+    height: 85px;
+    margin-right: 10px;
+}
+
+.logo-container h1 {
+    font-size: 24px;
+    color: #e63946;
+    margin: 0;
+}
+
+/* Navigation items */
+.nav-items ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-items li {
+    margin: 0 15px;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 550;
+    color: #555;
+    transition: all 0.3s ease;
+}
+
+.nav-items li:hover {
+    cursor: pointer;
+    color: #e63946;
+    transform: scale(1.1);
+}
+
+.app {
+    padding: 20px;
+    text-align: center;
+}
+
+.filter {
+    padding: 15px;
+}
+.filter-btn {
+    padding: 5px;
+    cursor: pointer;
+}
+/* Restaurant Card Container */
+.res-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
+}
+.res-card {
+    width: 300px;
+    margin: 10px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.res-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Restaurant Card Image */
+.res-img {
+    width: 100%;
+    height: 270px;
+    object-fit: cover;
+}
+
+/* Card Content */
+.res-content {
+    padding: 10px;
+    font-family: 'Arial', sans-serif;
+}
+
+.res-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.res-rating {
+    display: flex;
+    align-items: center;
+    color: #48c479;
+    font-size: 14px;
+}
+
+.res-details {
+    font-size: 14px;
+    color: #666;
+    margin-top: 5px;
+}
+
+.res-location {
+    margin-top: 5px;
+    font-size: 12px;
+    color: #888;
+}
