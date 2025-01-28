@@ -1,32 +1,84 @@
-import RestaurantCard from './RestaurantCard.js';
-import resList from '../utils/resList.js';
-import { useState } from 'react';
+import RestaurantCard from "./RestaurantCard.js";
+import { useEffect, useState } from "react";
+import Shimmer from "./Shimmer.js";
+import { FiSearch } from "react-icons/fi";
+import { AiOutlineStar, AiOutlineClockCircle } from "react-icons/ai";
+import { HiOutlineFire } from "react-icons/hi";
+import { BiDollar, BiCart } from "react-icons/bi";
 
 const Body = () => {
+  const [ListOfRestaurants, setListOfRestaurants] = useState([]);
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-  const [ListOfRestaurants, setListOfRestaurants] = useState(resList);
+  const [AllList, setAllList] = useState([]);
+  const [SearchText, setSearchText] = useState("")
+  
+  const fetchData = async () => {
+    const data = await fetch(
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=17.983672109642054&lng=79.53181611032477&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+    );
 
-    return (
-        <div className='body'>
-            <div className='filter'>
-                <button 
-                  className='filter-btn' 
-                  onClick = {() => {
-                    const filteredList =  resList.filter(
-                      (res)=>res.info.avgRating > 4.3
-                    )
-                    setListOfRestaurants(filteredList);
-                }}>
-                  Top Rated Restaurants
-                </button>
-            </div>
-            <div className='res-container'>
-              {
-                ListOfRestaurants.map((restaurant) => (<RestaurantCard key = {restaurant.info.id} resData = {restaurant}/>))
-              }
-            </div>
+    const json = await data.json();
+    setListOfRestaurants(
+      json.data.cards[1].card.card.gridElements.infoWithStyle.restaurants
+    );
+  };
+
+  const handleTopRated = ()=>{
+      const filteredList = ListOfRestaurants.filter(
+        (res) => res.info.avgRating > 4.3
+      );
+      setListOfRestaurants(filteredList);
+  }
+
+
+  return ListOfRestaurants.length === 0 ? (
+    <Shimmer />
+  ) : (
+    <div className="body">
+      <div className="top-container">
+        <div className="search-container">
+          <input
+            type="text"
+            className="search-input"
+            placeholder="Search restaurants..."
+            onChange={(e) => setSearchText(e.target.value)}
+          />
+          <button className="search-btn" ><FiSearch className="search-icon" /></button>
         </div>
-    )
-}
+
+        <div className="filter">
+          <button
+            className="filter-btn"
+            onClick={handleTopRated}
+          >
+            <AiOutlineStar className="filter-icon" />
+            Top Rated
+          </button>
+          <button className="filter-btn">
+            <AiOutlineClockCircle className="filter-icon" />
+            Fast Delivery
+          </button>
+          <button className="filter-btn">
+            <HiOutlineFire className="filter-icon" />
+            Popular
+          </button>
+          <button className="filter-btn">
+            <BiDollar className="filter-icon" />
+            Offers
+          </button>
+        </div>
+      </div>
+
+      <div className="res-container">
+        {ListOfRestaurants.map((restaurant) => (
+          <RestaurantCard key={restaurant.info.id} resData={restaurant} />
+        ))}
+      </div>
+    </div>
+  );
+};
 
 export default Body;
