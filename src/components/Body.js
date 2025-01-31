@@ -2,7 +2,11 @@ import RestaurantCard from "./RestaurantCard.js";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer.js";
 import { FiSearch } from "react-icons/fi";
-import { AiOutlineStar, AiOutlineClockCircle } from "react-icons/ai";
+import {
+  AiOutlineStar,
+  AiOutlineClockCircle,
+  AiOutlineHome,
+} from "react-icons/ai";
 import { HiOutlineFire } from "react-icons/hi";
 import { BiDollar, BiCart } from "react-icons/bi";
 
@@ -13,8 +17,8 @@ const Body = () => {
   }, []);
 
   const [AllList, setAllList] = useState([]);
-  const [SearchText, setSearchText] = useState("")
-  
+  const [SearchText, setSearchText] = useState("");
+
   const fetchData = async () => {
     const data = await fetch(
       "https://www.swiggy.com/dapi/restaurants/list/v5?lat=17.983672109642054&lng=79.53181611032477&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
@@ -24,15 +28,39 @@ const Body = () => {
     setListOfRestaurants(
       json.data.cards[1].card.card.gridElements.infoWithStyle.restaurants
     );
+    setAllList(
+      json.data.cards[1].card.card.gridElements.infoWithStyle.restaurants
+    );
   };
 
-  const handleTopRated = ()=>{
-      const filteredList = ListOfRestaurants.filter(
-        (res) => res.info.avgRating > 4.3
-      );
-      setListOfRestaurants(filteredList);
+  console.log(ListOfRestaurants);
+  const handleTopRated = () => {
+    const filteredList = ListOfRestaurants.filter(
+      (res) => res.info.avgRating > 4.3
+    );
+    setListOfRestaurants(filteredList);
+  };
+
+  const handleSearch = () => {
+    const newList = ListOfRestaurants.filter(
+      (res) => res.info.name === SearchText
+    );
+    setListOfRestaurants(newList);
+  };
+
+  const handlePopularRest = () => {
+    const newList = ListOfRestaurants.filter(
+      (res) => parseFloat(res.info.totalRatingsString) > 9
+    );
+    setListOfRestaurants(newList)
   }
 
+  const handleFastDeliveryRest = () => {
+    const newList = ListOfRestaurants.filter(
+      (res) => parseFloat(res.info.sla.slaString) <= 15
+    );
+    setListOfRestaurants(newList)
+  }
 
   return ListOfRestaurants.length === 0 ? (
     <Shimmer />
@@ -46,25 +74,37 @@ const Body = () => {
             placeholder="Search restaurants..."
             onChange={(e) => setSearchText(e.target.value)}
           />
-          <button className="search-btn" ><FiSearch className="search-icon" /></button>
+          <button className="search-btn" onClick={handleSearch}>
+            <FiSearch className="search-icon" />
+          </button>
         </div>
 
         <div className="filter">
           <button
             className="filter-btn"
-            onClick={handleTopRated}
+            onClick={() => {
+              setListOfRestaurants(AllList);
+            }}
           >
+            <AiOutlineHome className="filter-icon" />
+            Home
+          </button>
+
+          <button className="filter-btn" onClick={handleTopRated}>
             <AiOutlineStar className="filter-icon" />
             Top Rated
           </button>
-          <button className="filter-btn">
+
+          <button className="filter-btn" onClick={handleFastDeliveryRest}>
             <AiOutlineClockCircle className="filter-icon" />
             Fast Delivery
           </button>
-          <button className="filter-btn">
+
+          <button className="filter-btn" onClick={handlePopularRest}>
             <HiOutlineFire className="filter-icon" />
             Popular
           </button>
+
           <button className="filter-btn">
             <BiDollar className="filter-icon" />
             Offers
