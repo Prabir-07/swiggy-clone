@@ -57,7 +57,7 @@ const Body = () => {
 
   const handleFastDeliveryRest = () => {
     const newList = ListOfRestaurants.filter(
-      (res) => parseFloat(res.info.sla.slaString) <= 15
+      (res) => parseFloat(res.info.sla.slaString.substring(0, 2)) <= 20
     );
     setListOfRestaurants(newList)
   }
