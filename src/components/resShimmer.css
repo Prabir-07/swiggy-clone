@@ -1,0 +1,145 @@
+/* Shimmer animation keyframes */
+@keyframes shimmer {
+    0% {
+        background-position: -500px 0;
+    }
+
+    100% {
+        background-position: 500px 0;
+    }
+}
+
+/* Container for the skeleton layout */
+.shimmer-restaurant-menu {
+    max-width: 768px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Common shimmer style for lines/blocks */
+.shimmer-line,
+.shimmer-title,
+.shimmer-info-line,
+.shimmer-deal,
+.shimmer-menu-title,
+.shimmer-search-bar,
+.shimmer-menu-item {
+    background: #f6f7f8;
+    background-image: linear-gradient(90deg,
+            #f6f7f8 0px,
+            #edeef1 40px,
+            #f6f7f8 80px);
+    background-size: 500px 100%;
+    animation: shimmer 1.4s infinite linear;
+    border-radius: 4px;
+}
+
+/* Header skeleton */
+.shimmer-header {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+
+.shimmer-title {
+    width: 40%;
+    height: 24px;
+    margin-bottom: 0.5rem;
+}
+
+.shimmer-info-line {
+    width: 80%;
+    height: 16px;
+}
+
+/* Deals skeleton */
+.shimmer-deals-section {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.shimmer-deal {
+    width: 80px;
+    height: 28px;
+}
+
+/* Menu section skeleton */
+.shimmer-menu-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.shimmer-menu-title {
+    width: 100px;
+    height: 20px;
+}
+
+.shimmer-search-bar {
+    width: 50%;
+    max-width: 300px;
+    height: 28px;
+}
+
+/* Recommended skeleton */
+.shimmer-recommended-section {
+    margin-top: 1rem;
+}
+
+.shimmer-recommended-title {
+    width: 120px;
+    height: 20px;
+    margin-bottom: 1rem;
+}
+
+/* Skeleton for each recommended item */
+.shimmer-menu-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 1rem;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    background-color: #fafafa;
+    animation: none;
+    /* We'll apply shimmer to lines inside it */
+}
+
+/* Lines inside the skeleton item */
+.shimmer-line {
+    background: #f6f7f8;
+    background-image: linear-gradient(90deg,
+            #f6f7f8 0px,
+            #edeef1 40px,
+            #f6f7f8 80px);
+    background-size: 500px 100%;
+    animation: shimmer 1.4s infinite linear;
+    border-radius: 4px;
+}
+
+.shimmer-line.short {
+    width: 50%;
+    height: 16px;
+}
+
+.shimmer-line.xshort {
+    width: 30%;
+    height: 14px;
+}
+
+.shimmer-line.medium {
+    width: 90%;
+    height: 14px;
+}
+
+.shimmer-line.btn {
+    width: 80px;
+    height: 28px;
+    align-self: flex-end;
+}

@@ -9,6 +9,7 @@ import {
 } from "react-icons/ai";
 import { HiOutlineFire } from "react-icons/hi";
 import { BiDollar, BiCart } from "react-icons/bi";
+import { Link } from "react-router-dom";
 
 const Body = () => {
   const [ListOfRestaurants, setListOfRestaurants] = useState([]);
@@ -114,7 +115,13 @@ const Body = () => {
 
       <div className="res-container">
         {ListOfRestaurants.map((restaurant) => (
-          <RestaurantCard key={restaurant.info.id} resData={restaurant} />
+          <Link
+            key={restaurant.info.id}
+            to={`/restaurants/${restaurant.info.id}`}
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            <RestaurantCard resData={restaurant} />
+          </Link>
         ))}
       </div>
     </div>
